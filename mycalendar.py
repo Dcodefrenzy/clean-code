@@ -47,7 +47,4 @@ class MyCalendar:
 
     def get_events(self, month, day_of_month, year):
         day_of_year = self.day_of_year(month, day_of_month, year)
-        if day_of_year in self.events:
-            return self.events[day_of_year]
-        else:
-            return None
+        return self.events.get(day_of_year, None)
