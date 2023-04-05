@@ -22,36 +22,11 @@ class MyCalendar:
         self.events = {}
 
     def day_of_year(self, month, day_of_month, year):
-        if month == 1:
-            day_of_month += 0
-        elif month == 2:
-            day_of_month += 31
-        elif month == 3:
-            day_of_month += 59
-        elif month == 4:
-            day_of_month += 90
-        elif month == 5:
-            day_of_month += 31 + 28 + 31 + 30
-        elif month == 6:
-            day_of_month += 31 + 28 + 31 + 30 + 31
-        elif month == 7:
-            day_of_month += 31 + 28 + 31 + 30 + 31 + 30
-        elif month == 8:
-            day_of_month += 31 + 28 + 31 + 30 + 31 + 30 + 31
-        elif month == 9:
-            day_of_month += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31
-        elif month == 10:
-            day_of_month += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30
-        elif month == 11:
-            day_of_month += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31
-        elif month == 12:
-            day_of_month += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30
-        else:
-            return -1
+        days_in_month = [0,31,28,31,30,31,30,31,31,30,31,30,31]
+        if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+            days_in_month[2] = 29
+        return sum(days_in_month[:month]) + day_of_month
 
-        if (year % 4 == 0 or (year % 100 == 0 and year % 400 == 0)) and month > 2:
-            day_of_month += 1
-        return day_of_month
 
     def add_event(self, name, month, day_of_month, year):
         day_of_year = self.day_of_year(month, day_of_month, year)
