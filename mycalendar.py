@@ -38,16 +38,13 @@ class MyCalendar:
 
     def remove_event(self, name, month, day_of_month, year):
         day_of_year = self.day_of_year(month, day_of_month, year)
-        if name:
-            if day_of_year in self.events:
-                if name in self.events[day_of_year]:
-                    self.events[day_of_year].remove(name)
-                if len(self.events[day_of_year]) == 0:
-                    del self.events[day_of_year]
+        events_for_day = self.events.get(day_of_year)
+        if events_for_day:
+            if name in events_for_day:
+                events_for_day.remove(name)
+            if not events_for_day:
+                del self.events[day_of_year]
 
     def get_events(self, month, day_of_month, year):
         day_of_year = self.day_of_year(month, day_of_month, year)
-        if day_of_year in self.events:
-            return self.events[day_of_year]
-        else:
-            return None
+        return self.events.get(day_of_year, None)
